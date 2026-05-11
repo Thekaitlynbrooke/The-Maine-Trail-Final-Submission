@@ -1,0 +1,29 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: PHP Linting
+      id: php-linting
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: PHP Linting
+        setup-command: chmod +x ./.cis333tests/vendor/bin/phplint
+        command: "./.cis333tests/vendor/bin/phplint . --no-configuration --no-cache --exclude=vendor --extensions=php --warning"
+        timeout: 10
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        PHP-LINTING_RESULTS: "${{steps.php-linting.outputs.result}}"
+      with:
+        runners: php-linting
