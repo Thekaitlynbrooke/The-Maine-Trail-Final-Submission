@@ -378,26 +378,21 @@ if ($_SESSION['storm'] >= 100) {
     $_SESSION['status'] = "storm";
 
 }
+$stormLevels = [
+    0 => "🌞",
+    20 => "🌤️",
+    40 => "🌨️",
+    60 => "❄️",
+    80 => "🥶",
+    100 => "⛈️"
+];
+
 $stormEmoji = "🌞";
 
-if ($_SESSION['storm'] >= 20) {
-    $stormEmoji = "🌤️";
-}
-
-if ($_SESSION['storm'] >= 40) {
-    $stormEmoji = "🌨️";
-}
-
-if ($_SESSION['storm'] >= 60) {
-    $stormEmoji = "❄️";
-}
-
-if ($_SESSION['storm'] >= 80) {
-    $stormEmoji = "🥶";
-}
-
-if ($_SESSION['storm'] >= 100) {
-    $stormEmoji = "⛈️";
+foreach ($stormLevels as $level => $emoji) {
+    if ($_SESSION['storm'] >= $level) {
+        $stormEmoji = $emoji;
+    }
 }
 
 $progressBar = "⬜⬜⬜⬜⬜";
