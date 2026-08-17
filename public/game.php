@@ -13,6 +13,8 @@ if (!isset($_SESSION['progress'])) {
     $_SESSION['status'] = "playing";
     $_SESSION['message'] = "";
     $_SESSION['location'] = "Portland";
+
+    writeGameLog("New game started");
 }
 
 
