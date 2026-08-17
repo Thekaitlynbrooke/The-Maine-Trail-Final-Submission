@@ -363,24 +363,11 @@ if (isset($_POST['choice']) && $_POST['choice'] == 'next') {
 // =======================================================
 //              VALUE PARAMETERS
 // =======================================================
-if ($_SESSION['gas'] < 0) {
-    $_SESSION['gas'] = 0;
-}
-if ($_SESSION['gas'] > 100) {
-    $_SESSION['gas'] = 100;
-}
-if ($_SESSION['morale'] < 0) {
-    $_SESSION['morale'] = 0;
-}
-if ($_SESSION['morale'] > 100) {
-    $_SESSION['morale'] = 100;
-}
-if ($_SESSION['progress'] > 100) {
-    $_SESSION['progress'] = 100;
-}
-if ($_SESSION['storm'] > 100) {
-    $_SESSION['storm'] = 100;
-} 
+$_SESSION['gas'] = clampStat($_SESSION['gas']);
+$_SESSION['morale'] = clampStat($_SESSION['morale']);
+$_SESSION['progress'] = clampStat($_SESSION['progress']);
+$_SESSION['storm'] = clampStat($_SESSION['storm']);
+
 if ($_SESSION['gas'] <= 0) {
     $_SESSION['status'] = "gas";
 }
